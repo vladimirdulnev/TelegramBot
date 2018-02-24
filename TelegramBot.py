@@ -32,17 +32,17 @@ class BotHandler:
 		
 greet_bot = BotHandler('544933034:AAHRubc47xZG92QM7N2aUdJkL9xElyzAjys')  
 greetings = ('здравствуй', 'привет', 'ку', 'здорово')  
-now = datetime.datetime.now()
 
 
 def main():  
     new_offset = None
+    now = datetime.datetime.now()
     today = now.day
     hour = now.hour
-
+    
     while True:
         greet_bot.get_updates(new_offset)
-
+        
         last_update = greet_bot.get_last_update()
         
         if last_update is None:
@@ -64,6 +64,8 @@ def main():
         elif last_chat_text.lower() in greetings and today == now.day and 17 <= hour < 23:
             greet_bot.send_message(last_chat_id, 'Добрый вечер, {}'.format(last_chat_name))
             today += 1
+        else:
+            greet_bot.send_message(last_chat_id, 'Бубалех!')
 
         new_offset = last_update_id + 1
 
